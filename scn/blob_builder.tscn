@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://csmwk4uklpuoa"]
+
+[ext_resource type="Script" uid="uid://dgsnpmqochrhb" path="res://scn/blob_builder.gd" id="1_5lqf8"]
+[ext_resource type="Texture2D" uid="uid://b0tewb86gpwsi" path="res://img/placeholders/blopbuilder_screen.png" id="1_aai3b"]
+[ext_resource type="PackedScene" uid="uid://coppjhsbvxcxe" path="res://obj/blocks/main_blop.tscn" id="2_elhh7"]
+[ext_resource type="Script" uid="uid://cioc4i0gxu6ke" path="res://obj/blocks/main_blop.gd" id="3_2rvu3"]
+[ext_resource type="Script" uid="uid://durgoy6a8yrwb" path="res://scn/timer.gd" id="5_gvuwh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvuwh"]
+size = Vector2(50, 50)
+
+[node name="BlobBuilder" type="Node2D"]
+script = ExtResource("1_5lqf8")
+
+[node name="BlopbuilderScreen" type="Sprite2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(577, 323.438)
+scale = Vector2(0.919216, 0.852764)
+texture = ExtResource("1_aai3b")
+
+[node name="Timer" type="Label" parent="."]
+offset_left = 669.0
+offset_top = 92.0
+offset_right = 763.0
+offset_bottom = 147.0
+theme_override_font_sizes/font_size = 30
+text = "asda"
+script = ExtResource("5_gvuwh")
+time = 5.0
+number_of_parts = 5
+
+[node name="blob_spawner" type="Marker2D" parent="."]
+position = Vector2(345, 38)
+
+[node name="main_blop" parent="." instance=ExtResource("2_elhh7")]
+position = Vector2(333, 449)
+gravity_scale = 0.0
+script = ExtResource("3_2rvu3")
+
+[node name="wall" type="StaticBody2D" parent="."]
+position = Vector2(335, 452)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+shape = SubResource("RectangleShape2D_gvuwh")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(336, 451)
+node_a = NodePath("../main_blop")
+node_b = NodePath("../wall")
