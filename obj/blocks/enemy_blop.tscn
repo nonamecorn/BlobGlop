@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsvaxgtsilw5j"]
+
+[ext_resource type="PackedScene" uid="uid://coppjhsbvxcxe" path="res://obj/blocks/main_blop.tscn" id="1_na6rd"]
+[ext_resource type="Script" uid="uid://c0rm1tpvd5pq6" path="res://obj/blocks/enemy_blop.gd" id="2_bc6xm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc6xm"]
+radius = 1046.35
+
+[node name="enemy_blop" instance=ExtResource("1_na6rd")]
+script = ExtResource("2_bc6xm")
+turn_speed = 90000.0
+player_handeled = false
+
+[node name="vision" type="Area2D" parent="." index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vision" index="0"]
+shape = SubResource("CircleShape2D_bc6xm")
+
+[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]

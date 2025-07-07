@@ -1,14 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://coppjhsbvxcxe"]
+[gd_scene load_steps=5 format=3 uid="uid://coppjhsbvxcxe"]
 
-[ext_resource type="Texture2D" uid="uid://duh52nlwcme0q" path="res://icon.svg" id="1_3klh8"]
+[ext_resource type="Script" uid="uid://cioc4i0gxu6ke" path="res://obj/blocks/main_blop.gd" id="1_cc603"]
+[ext_resource type="Texture2D" uid="uid://8no8hmdqimr3" path="res://img/new_art/Base.png" id="2_cc603"]
+[ext_resource type="Texture2D" uid="uid://dr400vpi1ve31" path="res://img/Eye.png" id="2_hn7a0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hn7a0"]
-radius = 65.0308
+radius = 61.0737
 
-[node name="main_blop" type="RigidBody2D" groups=["attachable"]]
+[node name="main_blop" type="RigidBody2D" node_paths=PackedStringArray("camera") groups=["attachable"]]
+gravity_scale = 0.0
+script = ExtResource("1_cc603")
+player_handeled = true
+camera = NodePath("Camera2D")
 
 [node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_3klh8")
+position = Vector2(2, -0.500003)
+scale = Vector2(0.790961, 0.796512)
+texture = ExtResource("2_cc603")
+
+[node name="Eye" type="Sprite2D" parent="."]
+position = Vector2(-2, 0)
+scale = Vector2(0.795, 0.795)
+texture = ExtResource("2_hn7a0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hn7a0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.5, 0.5)

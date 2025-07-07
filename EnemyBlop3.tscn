@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://bj5lg5rxirl3o"]
+
+[ext_resource type="Script" uid="uid://c0rm1tpvd5pq6" path="res://obj/blocks/enemy_blop.gd" id="1_1jmjw"]
+[ext_resource type="Texture2D" uid="uid://8no8hmdqimr3" path="res://img/new_art/Base.png" id="2_mgwxl"]
+[ext_resource type="Texture2D" uid="uid://dr400vpi1ve31" path="res://img/Eye.png" id="3_wdaws"]
+[ext_resource type="PackedScene" uid="uid://ybcibdx8alhl" path="res://obj/blocks/mouth.tscn" id="4_sbluj"]
+[ext_resource type="PackedScene" uid="uid://b2rvnehr425df" path="res://obj/blocks/body.tscn" id="6_tn2bt"]
+[ext_resource type="PackedScene" uid="uid://ch72htveafpdw" path="res://obj/blocks/thruster.tscn" id="7_287fg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hn7a0"]
+radius = 61.0737
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc6xm"]
+radius = 1046.35
+
+[node name="enemy_blop" type="RigidBody2D" node_paths=PackedStringArray("camera") groups=["attachable"]]
+position = Vector2(527.999, 634.878)
+rotation = -1.52891
+gravity_scale = 0.0
+linear_velocity = Vector2(0.0814799, -0.747553)
+angular_velocity = 0.229262
+script = ExtResource("1_1jmjw")
+turn_speed = 90000.0
+player_handeled = true
+camera = NodePath("Camera2D")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(2, -0.500003)
+scale = Vector2(0.790961, 0.796512)
+texture = ExtResource("2_mgwxl")
+
+[node name="Eye" type="Sprite2D" parent="."]
+position = Vector2(-2, 0)
+scale = Vector2(0.795, 0.795)
+texture = ExtResource("3_wdaws")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hn7a0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.5, 0.5)
+
+[node name="vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vision"]
+shape = SubResource("CircleShape2D_bc6xm")
+
+[node name="Mouth" parent="." instance=ExtResource("4_sbluj")]
+position = Vector2(10.2362, -69.1747)
+rotation = 0.146523
+gravity_scale = 0.0
+linear_velocity = Vector2(3.33607, -16.8356)
+angular_velocity = 0.240455
+
+[node name="Body" parent="." instance=ExtResource("6_tn2bt")]
+position = Vector2(-12.0363, 70.5694)
+rotation = -3.09218
+gravity_scale = 0.0
+linear_velocity = Vector2(-4.8291, 27.1825)
+angular_velocity = 0.340954
+
+[node name="Thruster" parent="Body" instance=ExtResource("7_287fg")]
+position = Vector2(-6.19714, -75.1359)
+rotation = -0.266422
+gravity_scale = 0.0
+linear_velocity = Vector2(-0.578465, 63.0229)
+angular_velocity = 1.08896
+
+[node name="@RigidBody2D@4" parent="Body" instance=ExtResource("7_287fg")]
+position = Vector2(41.6875, -50.0251)
+rotation = 1.67462
+gravity_scale = 0.0
+linear_velocity = Vector2(-7.00081, 34.2147)
+angular_velocity = -0.69359
+
+[node name="@RigidBody2D@2" parent="." instance=ExtResource("4_sbluj")]
+position = Vector2(44.1979, 54.0286)
+rotation = 2.43518
+gravity_scale = 0.0
+linear_velocity = Vector2(9.78627, 12.4934)
+angular_velocity = 0.240312
+
+[node name="@RigidBody2D@3" parent="." instance=ExtResource("4_sbluj")]
+position = Vector2(-59.1881, 37.4366)
+rotation = -2.13927
+gravity_scale = 0.0
+linear_velocity = Vector2(-14.2146, 7.27291)
+angular_velocity = 0.238739
+
+[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]

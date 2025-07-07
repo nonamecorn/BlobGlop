@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://bffxw3kiifbe4"]
+
+[ext_resource type="PackedScene" uid="uid://dn3na8rc16aj3" path="res://obj/blocks/blob_template.tscn" id="1_c4tya"]
+[ext_resource type="Script" uid="uid://g6sn7b2xh38x" path="res://obj/blocks/turbine.gd" id="2_aalxe"]
+[ext_resource type="Texture2D" uid="uid://bd5l1bxtcxgww" path="res://img/Turbine.png" id="2_d2d3u"]
+[ext_resource type="Texture2D" uid="uid://dspm3upn5fuhr" path="res://img/Turbine effect.png" id="3_d2d3u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aalxe"]
+size = Vector2(84, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aalxe"]
+atlas = ExtResource("3_d2d3u")
+region = Rect2(0, 0, 77, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oabrs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aalxe")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Turbine" instance=ExtResource("1_c4tya")]
+script = ExtResource("2_aalxe")
+
+[node name="Icon" parent="." index="0"]
+position = Vector2(0, -16)
+rotation = 1.5708
+scale = Vector2(0.54468, 0.55939)
+texture = ExtResource("2_d2d3u")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -19.5)
+shape = SubResource("RectangleShape2D_aalxe")
+
+[node name="PinJoint2D" parent="." index="2"]
+position = Vector2(0, -2)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3"]
+position = Vector2(0, -91.47)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_oabrs")
+frame = 1
+frame_progress = 0.543256
+
+[node name="Button" type="Button" parent="." index="4"]
+offset_left = -47.0
+offset_top = -59.0
+offset_right = 48.0
+offset_bottom = 2.0
+text = "press me!"
+
+[node name="Timer" type="Timer" parent="." index="5"]
+wait_time = 1.5
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="." index="6"]
+one_shot = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

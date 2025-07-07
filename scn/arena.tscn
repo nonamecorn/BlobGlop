@@ -1,0 +1,148 @@
+[gd_scene load_steps=11 format=3 uid="uid://diymh8oqqtxtr"]
+
+[ext_resource type="Script" uid="uid://ocaewffunmvo" path="res://scn/arena.gd" id="1_ab3u0"]
+[ext_resource type="Texture2D" uid="uid://hlke2skwsfbt" path="res://img/bigart/Blue.png" id="2_ks4en"]
+[ext_resource type="PackedScene" uid="uid://dwbvvtex8gjye" path="res://obj/enemies/EnemyBlop1.tscn" id="3_1yuji"]
+[ext_resource type="Script" uid="uid://dhtvuxcuspj0o" path="res://scn/line_2d.gd" id="4_k5nxq"]
+[ext_resource type="Script" uid="uid://bj7o4hdit6dl7" path="res://scn/button.gd" id="5_dwlxm"]
+[ext_resource type="PackedScene" uid="uid://dfownrxwlbqy3" path="res://EnemyBlop2.tscn" id="5_unjft"]
+[ext_resource type="PackedScene" uid="uid://bj5lg5rxirl3o" path="res://EnemyBlop3.tscn" id="6_hc5vw"]
+[ext_resource type="PackedScene" path="res://EnemyBlop5.tscn" id="8_y46a4"]
+[ext_resource type="PackedScene" path="res://EnemyBlop6.tscn" id="9_0wbil"]
+[ext_resource type="PackedScene" path="res://EnemyBlop7.tscn" id="10_pwafl"]
+
+[node name="ARENA" type="Node2D"]
+script = ExtResource("1_ab3u0")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(10800, 5400)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_repeat = 2
+texture = ExtResource("2_ks4en")
+region_enabled = true
+region_rect = Rect2(0, 0, 10800, 5400)
+
+[node name="enemy_blop" parent="." instance=ExtResource("3_1yuji")]
+position = Vector2(468, 365)
+
+[node name="enemy_blop2" parent="." instance=ExtResource("3_1yuji")]
+position = Vector2(2019, 1377)
+
+[node name="enemy_blop3" parent="." instance=ExtResource("3_1yuji")]
+position = Vector2(-2369, 1658)
+
+[node name="enemy_blop4" parent="." instance=ExtResource("3_1yuji")]
+position = Vector2(-2325, -488)
+
+[node name="enemy_blop5" parent="." instance=ExtResource("3_1yuji")]
+position = Vector2(-305, 2829)
+
+[node name="enemy_blop6" parent="." instance=ExtResource("3_1yuji")]
+position = Vector2(2153, 3440)
+
+[node name="enemy_blop7" parent="." instance=ExtResource("3_1yuji")]
+position = Vector2(3377, -558)
+
+[node name="enemy_blop8" parent="." instance=ExtResource("5_unjft")]
+position = Vector2(-1359.52, 5384.58)
+
+[node name="enemy_blop9" parent="." instance=ExtResource("5_unjft")]
+position = Vector2(6651.48, 1399.58)
+
+[node name="enemy_blop10" parent="." instance=ExtResource("5_unjft")]
+position = Vector2(2757.48, 6433.58)
+
+[node name="enemy_blop11" parent="." instance=ExtResource("5_unjft")]
+position = Vector2(558.477, -2290.42)
+
+[node name="enemy_blop12" parent="." instance=ExtResource("6_hc5vw")]
+position = Vector2(7189, -718.122)
+player_handeled = false
+
+[node name="enemy_blop13" parent="." instance=ExtResource("6_hc5vw")]
+position = Vector2(-4550, 4011.88)
+player_handeled = false
+
+[node name="enemy_blop14" parent="." instance=ExtResource("6_hc5vw")]
+position = Vector2(5733, 6903.88)
+player_handeled = false
+
+[node name="enemy_blop15" parent="." instance=ExtResource("8_y46a4")]
+position = Vector2(854.233, 6036.84)
+player_handeled = false
+
+[node name="enemy_blop16" parent="." instance=ExtResource("8_y46a4")]
+position = Vector2(4877.23, 5863.84)
+player_handeled = false
+
+[node name="enemy_blop17" parent="." instance=ExtResource("9_0wbil")]
+position = Vector2(-2703.72, 6717.71)
+player_handeled = false
+
+[node name="enemy_blop18" parent="." instance=ExtResource("10_pwafl")]
+position = Vector2(7415.01, 3758.76)
+player_handeled = false
+
+[node name="enemy_blop19" parent="." instance=ExtResource("10_pwafl")]
+position = Vector2(-1943.99, 3830.76)
+player_handeled = false
+
+[node name="enemy_blop20" parent="." instance=ExtResource("8_y46a4")]
+position = Vector2(753.233, 4911.84)
+player_handeled = false
+
+[node name="wall" type="StaticBody2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="wall" node_paths=PackedStringArray("col_polygon")]
+points = PackedVector2Array(-3008, -4744, 7218, -4646, 11147, -1198, 12269, 4014, 7539, 8905, 912, 9697, -4737, 8348, -7098, 4555, -7054, 726, -4408, -3122)
+closed = true
+width = 30.0
+default_color = Color(0.244776, 0.244776, 0.244776, 1)
+script = ExtResource("4_k5nxq")
+col_polygon = NodePath("../CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall"]
+build_mode = 1
+polygon = PackedVector2Array(30350, -12797, 30350, 15074, -6781, 27069, -23098, 10576, -22657, -14384, -3959, -19676, 27086, -17647)
+
+[node name="enemy_blop" parent="wall/CollisionPolygon2D" instance=ExtResource("3_1yuji")]
+position = Vector2(7325, 2360)
+
+[node name="enemy_blop2" parent="wall/CollisionPolygon2D" instance=ExtResource("3_1yuji")]
+position = Vector2(8876, 3372)
+
+[node name="enemy_blop3" parent="wall/CollisionPolygon2D" instance=ExtResource("3_1yuji")]
+position = Vector2(4488, 3653)
+
+[node name="enemy_blop4" parent="wall/CollisionPolygon2D" instance=ExtResource("3_1yuji")]
+position = Vector2(4532, 1507)
+
+[node name="enemy_blop5" parent="wall/CollisionPolygon2D" instance=ExtResource("3_1yuji")]
+position = Vector2(6552, 4824)
+
+[node name="enemy_blop6" parent="wall/CollisionPolygon2D" instance=ExtResource("3_1yuji")]
+position = Vector2(9010, 5435)
+
+[node name="enemy_blop7" parent="wall/CollisionPolygon2D" instance=ExtResource("3_1yuji")]
+position = Vector2(10234, 1437)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.0
+offset_top = 10.0
+offset_right = 177.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "BACK TO BLOB BUILDER"
+script = ExtResource("5_dwlxm")
+
+[connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_pressed"]

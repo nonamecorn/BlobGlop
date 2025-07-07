@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://ybcibdx8alhl"]
+
+[ext_resource type="PackedScene" uid="uid://dn3na8rc16aj3" path="res://obj/blocks/blob_template.tscn" id="1_j555t"]
+[ext_resource type="Texture2D" uid="uid://dulrmvoky73if" path="res://img/Mouth1.png" id="2_ky1de"]
+[ext_resource type="Texture2D" uid="uid://ogph8i5vcrpi" path="res://img/Mouth2.png" id="3_mfh58"]
+[ext_resource type="Script" uid="uid://bfxmkts0qbtnb" path="res://obj/blocks/eat_box.gd" id="4_ky1de"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i1n4"]
+atlas = ExtResource("2_ky1de")
+region = Rect2(0, 0, 172, 193)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yrnp"]
+atlas = ExtResource("3_mfh58")
+region = Rect2(0, 0, 164, 161)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4fij5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i1n4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yrnp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ky1de"]
+size = Vector2(43, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ky1de"]
+radius = 34.0588
+
+[node name="Mouth" instance=ExtResource("1_j555t")]
+
+[node name="Icon" parent="." index="0"]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(1, 1)
+rotation = 2.28464
+scale = Vector2(0.5, 0.43)
+sprite_frames = SubResource("SpriteFrames_4fij5")
+frame_progress = 0.294559
+offset = Vector2(-30, 30)
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_ky1de")
+
+[node name="EatBox" type="Area2D" parent="." index="4" node_paths=PackedStringArray("asprite")]
+position = Vector2(2, -51)
+script = ExtResource("4_ky1de")
+asprite = NodePath("../AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EatBox" index="0"]
+position = Vector2(-1, -7)
+shape = SubResource("CircleShape2D_ky1de")
+
+[node name="Timer" type="Timer" parent="EatBox" index="1"]
+wait_time = 0.5
+
+[connection signal="body_entered" from="EatBox" to="EatBox" method="_on_body_entered"]
+[connection signal="body_exited" from="EatBox" to="EatBox" method="_on_body_exited"]
+[connection signal="timeout" from="EatBox/Timer" to="EatBox" method="_on_timer_timeout"]

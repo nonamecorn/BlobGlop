@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://csmwk4uklpuoa"]
+[gd_scene load_steps=6 format=3 uid="uid://csmwk4uklpuoa"]
 
 [ext_resource type="Script" uid="uid://dgsnpmqochrhb" path="res://scn/blob_builder.gd" id="1_5lqf8"]
 [ext_resource type="Texture2D" uid="uid://b0tewb86gpwsi" path="res://img/placeholders/blopbuilder_screen.png" id="1_aai3b"]
 [ext_resource type="PackedScene" uid="uid://coppjhsbvxcxe" path="res://obj/blocks/main_blop.tscn" id="2_elhh7"]
-[ext_resource type="Script" uid="uid://cioc4i0gxu6ke" path="res://obj/blocks/main_blop.gd" id="3_2rvu3"]
 [ext_resource type="Script" uid="uid://durgoy6a8yrwb" path="res://scn/timer.gd" id="5_gvuwh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvuwh"]
@@ -15,36 +14,72 @@ script = ExtResource("1_5lqf8")
 [node name="BlopbuilderScreen" type="Sprite2D" parent="."]
 z_index = 1
 z_as_relative = false
-position = Vector2(577, 323.438)
-scale = Vector2(0.919216, 0.852764)
+position = Vector2(902.5, 446.438)
+scale = Vector2(1.4298, 1.16534)
 texture = ExtResource("1_aai3b")
 
 [node name="Timer" type="Label" parent="."]
-offset_left = 669.0
-offset_top = 92.0
-offset_right = 763.0
-offset_bottom = 147.0
+offset_left = 1074.0
+offset_top = 131.0
+offset_right = 1168.0
+offset_bottom = 186.0
 theme_override_font_sizes/font_size = 30
 text = "asda"
 script = ExtResource("5_gvuwh")
 time = 5.0
 number_of_parts = 5
 
-[node name="blob_spawner" type="Marker2D" parent="."]
-position = Vector2(345, 38)
+[node name="UP NEXT" type="Label" parent="."]
+offset_left = 1025.0
+offset_top = 329.0
+offset_right = 1158.0
+offset_bottom = 384.0
+theme_override_font_sizes/font_size = 30
+text = "UP NEXT:"
 
-[node name="main_blop" parent="." instance=ExtResource("2_elhh7")]
-position = Vector2(333, 449)
-gravity_scale = 0.0
-script = ExtResource("3_2rvu3")
+[node name="blob_name" type="Label" parent="."]
+offset_left = 1026.0
+offset_top = 398.0
+offset_right = 1159.0
+offset_bottom = 453.0
+theme_override_font_sizes/font_size = 30
+text = "GUN"
+
+[node name="blob_spawner" type="Marker2D" parent="."]
+position = Vector2(537, 79)
 
 [node name="wall" type="StaticBody2D" parent="."]
-position = Vector2(335, 452)
+position = Vector2(530, 636)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
 shape = SubResource("RectangleShape2D_gvuwh")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
-position = Vector2(336, 451)
+position = Vector2(531, 635)
 node_a = NodePath("../main_blop")
 node_b = NodePath("../wall")
+
+[node name="Button" type="Button" parent="."]
+z_index = 2
+z_as_relative = false
+offset_left = 1044.0
+offset_top = 619.0
+offset_right = 1210.0
+offset_bottom = 669.0
+theme_override_font_sizes/font_size = 30
+text = "SAVE BLOP"
+
+[node name="Button2" type="Button" parent="."]
+z_index = 2
+offset_left = 1033.0
+offset_top = 725.0
+offset_right = 1313.0
+offset_bottom = 799.0
+theme_override_font_sizes/font_size = 30
+text = " GO TO THE ARENA"
+
+[node name="main_blop" parent="." instance=ExtResource("2_elhh7")]
+position = Vector2(527, 633)
+
+[connection signal="pressed" from="Button" to="." method="save_blob"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

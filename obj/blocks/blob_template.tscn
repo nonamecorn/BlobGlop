@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn3na8rc16aj3"]
+
+[ext_resource type="Script" uid="uid://bhexgxccdo5nb" path="res://obj/blocks/body.gd" id="1_br5fu"]
+[ext_resource type="Texture2D" uid="uid://c7sbytwyrxbqh" path="res://img/placeholders/flesh.png" id="2_sd1mb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ih7ef"]
+radius = 42.107
+
+[node name="Body" type="RigidBody2D"]
+mass = 0.225
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_br5fu")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-6.00002, 0)
+scale = Vector2(0.256457, 0.253526)
+texture = ExtResource("2_sd1mb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ih7ef")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_b = NodePath("..")
+disable_collision = false
+softness = 1.82
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

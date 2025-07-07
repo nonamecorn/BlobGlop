@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://16e2sus7wsgu"]
+
+[ext_resource type="PackedScene" uid="uid://dn3na8rc16aj3" path="res://obj/blocks/blob_template.tscn" id="1_jnonb"]
+[ext_resource type="Texture2D" uid="uid://gex2u3v0u85t" path="res://img/Gun.png" id="2_8i4rc"]
+[ext_resource type="Script" uid="uid://bdsjsvc02ddkn" path="res://obj/blocks/bullet_spawner.gd" id="3_8i4rc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jnonb"]
+size = Vector2(53, 27)
+
+[node name="Gun" instance=ExtResource("1_jnonb")]
+
+[node name="Icon" parent="." index="0"]
+position = Vector2(0, -12)
+scale = Vector2(0.536364, 0.473702)
+texture = ExtResource("2_8i4rc")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_jnonb")
+
+[node name="bullet_spawner" type="Marker2D" parent="." index="3"]
+position = Vector2(-2, -128)
+script = ExtResource("3_8i4rc")
+
+[node name="Timer" type="Timer" parent="bullet_spawner" index="0"]
+autostart = true
+
+[connection signal="timeout" from="bullet_spawner/Timer" to="bullet_spawner" method="_on_timer_timeout"]

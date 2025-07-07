@@ -5,6 +5,9 @@ signal timeout
 @export var time : float
 @export var number_of_parts : int
 
+func _ready() -> void:
+	number_of_parts += int(Global.xp / 100)
+
 var current_time = time
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

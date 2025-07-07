@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://obj/blocks/enemy_blop.gd" id="1_l0l58"]
+[ext_resource type="Texture2D" path="res://img/new_art/Base.png" id="2_p8jt1"]
+[ext_resource type="Texture2D" path="res://img/Eye.png" id="3_uokeq"]
+[ext_resource type="PackedScene" path="res://obj/blocks/mouth.tscn" id="4_x4c5l"]
+[ext_resource type="Script" path="res://obj/blocks/body.gd" id="5_cqo8k"]
+[ext_resource type="PackedScene" path="res://obj/blocks/thruster.tscn" id="6_4kylr"]
+[ext_resource type="Script" path="res://obj/blocks/thruster.gd" id="7_4vpjr"]
+[ext_resource type="PackedScene" path="res://obj/blocks/body.tscn" id="8_s7lgb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hn7a0"]
+radius = 61.0737
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc6xm"]
+radius = 1046.35
+
+[node name="enemy_blop" type="RigidBody2D" node_paths=PackedStringArray("camera") groups=["attachable"]]
+position = Vector2(532.282, 637.712)
+rotation = 2.70017
+gravity_scale = 0.0
+linear_velocity = Vector2(0.284011, -0.133895)
+angular_velocity = -0.104538
+script = ExtResource("1_l0l58")
+turn_speed = 90000.0
+player_handeled = true
+camera = NodePath("Camera2D")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(2, -0.500003)
+scale = Vector2(0.790961, 0.796512)
+texture = ExtResource("2_p8jt1")
+
+[node name="Eye" type="Sprite2D" parent="."]
+position = Vector2(-2, 0)
+scale = Vector2(0.795, 0.795)
+texture = ExtResource("3_uokeq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hn7a0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.5, 0.5)
+
+[node name="vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vision"]
+shape = SubResource("CircleShape2D_bc6xm")
+
+[node name="Mouth" type="RigidBody2D" parent="." instance=ExtResource("4_x4c5l")]
+position = Vector2(-60.5835, 34.8678)
+rotation = -2.07664
+scale = Vector2(1, 1)
+mass = 0.225
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(-5.75141, -4.47143)
+angular_velocity = -0.104868
+script = ExtResource("5_cqo8k")
+
+[node name="Thruster" type="RigidBody2D" parent="." instance=ExtResource("6_4kylr")]
+position = Vector2(56.422, -28.0328)
+rotation = 1.14526
+mass = 0.225
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(6.45092, 4.8226)
+linear_damp = 1.0
+angular_velocity = -0.0764261
+script = ExtResource("7_4vpjr")
+
+[node name="Body" type="RigidBody2D" parent="." groups=["attachable"] instance=ExtResource("8_s7lgb")]
+position = Vector2(-50.2107, -51.084)
+rotation = -0.85342
+mass = 0.225
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(3.98446, -10.7522)
+angular_velocity = -0.115422
+script = ExtResource("5_cqo8k")
+
+[node name="Body" type="RigidBody2D" parent="Body" groups=["attachable"] instance=ExtResource("8_s7lgb")]
+position = Vector2(-59.139, -11.4582)
+rotation = -0.910654
+scale = Vector2(1, 1)
+mass = 0.225
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(-6.08272, -14.3397)
+angular_velocity = -0.153381
+script = ExtResource("5_cqo8k")
+
+[node name="@RigidBody2D@2" type="RigidBody2D" parent="." instance=ExtResource("6_4kylr")]
+position = Vector2(61.4167, 14.2249)
+rotation = 1.87466
+mass = 0.225
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(1.71752, 6.94628)
+linear_damp = 1.0
+angular_velocity = -0.0420101
+script = ExtResource("7_4vpjr")
+
+[node name="@RigidBody2D@3" type="RigidBody2D" parent="." groups=["attachable"] instance=ExtResource("8_s7lgb")]
+position = Vector2(-3.39215, 71.4089)
+rotation = -3.13382
+mass = 0.225
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(-9.32026, 3.92781)
+angular_velocity = -0.0960364
+script = ExtResource("5_cqo8k")
+
+[node name="@RigidBody2D@4" type="RigidBody2D" parent="." groups=["attachable"] instance=ExtResource("8_s7lgb")]
+position = Vector2(71.172, -75.3022)
+rotation = 1.05342
+mass = 0.225
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(16.4434, 7.49541)
+angular_velocity = -0.230071
+script = ExtResource("5_cqo8k")
+
+[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
